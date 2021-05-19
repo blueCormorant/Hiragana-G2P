@@ -52,9 +52,48 @@ class G2PTest(unittest.TestCase):
 	def test_wa(self) -> None:
 		self.rewrites("は", "ɰa")
 	
+	def test_gohan(self) -> None:
+		self.rewrites("ごはん", "gohaɴ")
 	
+	def test_futari(self) -> None:
+		self.rewrites("ふたり", "ɸɯtaɾi")
 
+	def test_zonjiru(self) -> None:
+		self.rewrites("ぞんじる", "dzonʑiɾɯ")
 
+	def test_gyoza(self) -> None:
+		self.rewrites("ぎょざ", "ɡʲoza")
+
+	def test_jojo(self) -> None:
+		self.rewrites("じょじょ", "dʑoʑo")
+
+	def test_shojo(self) -> None:
+		self.rewrites("しょじょ", "ɕoʑo")
+
+	def test_yakuza(self) -> None:
+		self.rewrites("やくざ", "jakɯza")
+
+	def test_jinja(self) -> None:
+		self.rewrites("じんじゃ", "dʑinʑa")
+
+	def test_kingyo(self) -> None:
+		self.rewrites("きんぎょ", "kinɡʲo")
+
+	def test_shirou(self) -> None:
+		self.rewrites("しろう", "ɕiɾoɯ")
+
+	def test_ii(self) -> None:
+		self.rewrites("いい", "iː")
+
+	'''
+	def test_phonetic_db(self) -> None:
+		_file = open('jpd.txt', 'r')
+		for line in _file:
+			kana, ipa = line.split("\t")
+			self.rewrites(kana, ipa)
+	'''
 
 if __name__ == "__main__":
     unittest.main()
+
+
