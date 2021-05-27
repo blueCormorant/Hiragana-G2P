@@ -26,16 +26,16 @@ yoon = union("ゃ", "ゅ", "ょ")
 
 graphemes = union(monographs, sokuon, yoon).optimize()
 
-voiced_consonants = union("b","d","ɡ","j",
+voiced_consonants = union("b","d","ɡ","g",
 						  "m","n","ɲ","ŋ",
 						  "ɴ","p","ɾ","s",
 						  "ɰ","ɰ̃","z","ʑ",
-						  "ʲ","t")
+						  "ʲ","t","j")
 voiceless_consonants = union("ç","ɕ","ɸ","h","k","t")
 glottal_stop = accep("ʔ")
 consonants = union(voiceless_consonants, voiced_consonants, glottal_stop)
 
-vowels = union("ɑ","i","i̥","ɯ","ɯ̥","e","ẽ","o")
+vowels = union("a","ɑ","i","i̥","ɯ","ɯ̥","e","ẽ","o")
 
 suprasegmentals = accep("ː")
 
