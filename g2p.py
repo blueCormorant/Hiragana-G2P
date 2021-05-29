@@ -30,7 +30,7 @@ voiced_consonants = union("b","d","ɡ","g",
 						  "m","n","ɲ","ŋ",
 						  "ɴ","p","ɾ","j",
 						  "ɰ","ɰ̃","z","ʑ",
-						  "ʲ","t")
+						  "ʲ","t","y")
 
 voiceless_consonants = union("ç","ɕ","ɸ","h","k","t","s")
 
@@ -38,7 +38,7 @@ glottal_stop = accep("ʔ")
 
 consonants = union(voiceless_consonants, voiced_consonants, glottal_stop)
 
-vowels = union("a","ɑ","i","i̥","ɯ","ɯ̥","e","ẽ","o")
+vowels = union("a","ɑ","ã","i","i̥","ĩ","ɯ","ɯ̥","ɯ̃","e","ẽ","o","õ")
 
 suprasegmentals = accep("ː")
 
@@ -47,10 +47,16 @@ phonemes = union(consonants, vowels, suprasegmentals)
 SIGMA_STAR = union(graphemes, phonemes).closure().optimize()
 
 
+digraph_bos_map = [
+	("じゃ", "dʑɑ"),
+	("じゅ", "dʑɯ"),
+	("じょ", "dʑo"),
+]
+
 digraph_map = [
-	("きゃ", "kʲa"),
-	("きゅ", "kʲɯ"),
-	("きょ", "kʲo"),
+	("きゃ", "kja"),
+	("きゅ", "kjɯ"),
+	("きょ", "kjo"),
 	
 	("しゃ", "ɕa"),
 	("しゅ", "ɕɯ"),
@@ -68,9 +74,9 @@ digraph_map = [
 	("ひゅ", "çɯ"),
 	("ひょ", "ço"),
 
-	("みゃ", "mʲa"),
-	("みゅ", "mʲɯ"),
-	("みょ", "mʲo"),
+	("みゃ", "mja"),
+	("みゅ", "mjɯ"),
+	("みょ", "mjo"),
 
 	("りゃ", "ɾʲa"),
 	("りゅ", "ɾʲɯ"),
@@ -93,10 +99,6 @@ digraph_map = [
 	("ぴょ", "pʲo"),
 ]
 
-foo_map = [
-	("ɯう","ɯː"),
-]
-
 context_free_map = [
 	("あ", "ɑ"),
 	("い", "i"),
@@ -110,11 +112,11 @@ context_free_map = [
 	("け", "ke"),
 	("こ", "ko"),
 
-	("が", "gɑ"),
-	("ぎ", "gi"),
-	("ぐ", "gɯ"),
-	("げ", "ge"),
-	("ご", "go"),
+	("が", "ɡɑ"),
+	("ぎ", "ɡi"),
+	("ぐ", "ɡɯ"),
+	("げ", "ɡe"),
+	("ご", "ɡo"),
 
 	("さ", "sɑ"),
 	("し", "ɕi"),
@@ -135,11 +137,12 @@ context_free_map = [
 	("と", "to"),
 
 	("だ", "dɑ"),
+	("ぢ", "ʑi"),
 	("で", "de"),
 	("ど", "do"),
 
 	("な", "nɑ"),
-	("に", "ɲi"),
+	("に", "nʲi"),
 	("ぬ", "nɯ"),
 	("ね", "ne"),
 	("の", "no"),
@@ -168,9 +171,9 @@ context_free_map = [
 	("め", "me"),
 	("も", "mo"),
 
-	("や", "jɑ"),
-	("ゆ", "jɯ"),
-	("よ", "jo"),
+	("や", "yɑ"),
+	("ゆ", "yɯ"),
+	("よ", "yo"),
 
 	("ら", "ɾɑ"),
 	("り", "ɾi"),
@@ -185,7 +188,7 @@ long_vowel_map = [
 	("おお", "oː"),
 	("おう", "oː"),
 	("こう", "koː"),
-	("ごう", "goː"),
+	("ごう", "ɡoː"),
 	("そう", "soː"),
 	("ぞう", "zoː"),
 	("とう", "toː"),
@@ -201,7 +204,7 @@ long_vowel_map = [
 
 	("えい", "eː"),
 	("けい", "keː"),
-	("げい", "geː"),
+	("げい", "ɡeː"),
 	("せい", "seː"),
 	("ぜい", "zeː"),
 	("てい", "teː"),
@@ -214,7 +217,7 @@ long_vowel_map = [
 
 	("ええ", "eː"),
 	("けえ", "keː"),
-	("げえ", "geː"),
+	("げえ", "ɡeː"),
 	("せえ", "seː"),
 	("ぜえ", "zeː"),
 	("てえ", "teː"),
@@ -227,8 +230,8 @@ long_vowel_map = [
 
 	("いい", "iː"),
 	("きい", "kiː"),
-	("ぎい", "giː"),
-	("しい", "siː"),
+	("ぎい", "ɡiː"),
+	("しい", "ɕiː"),
 	("じい", "ziː"),
 	("にい", "niː"),
 	("ひい", "hiː"),
@@ -236,7 +239,9 @@ long_vowel_map = [
 	("ぴい", "piː"),
 	("りい", "riː"),
 	
-	("oɯ", "oː"),
+
+	("ゆう", "yɯː"),
+
 ]
 
 devoicing_map = [
@@ -245,7 +250,11 @@ devoicing_map = [
 ]
 
 nasalization_map = [
-	("e", "ẽ")
+	("e", "ẽ"),
+	("a", "ã"),
+	("ɯ", "ɯ̃"),
+	("o", "õ"),
+	("i", "ĩ"),
 ]
 
 gemination_map = [
@@ -254,26 +263,60 @@ gemination_map = [
 	("t", "tt"),
 ]
 
-bos_map = [
-	("じゃ", "dʑɑ"),
-	("じゅ", "dʑɯ"),
-	("じょ", "dʑo"),
-	("ざ", "dzɑ"),
+monograph_bos_map = [
 	("じ", "dʑi"),
 	("ず", "dzɯ"),
-	("ぜ", "dze"),
 	("ぞ", "dzo"),
 ]
-	
+
 G2P = (
-    cdrewrite(cross("は", "ɰɑ"), "[BOS]", "[EOS]", SIGMA_STAR)
-    @ cdrewrite(string_map(bos_map), "[BOS]", "", SIGMA_STAR)
-    @ cdrewrite(cross("ん", "ɴ"), "", "[EOS]", SIGMA_STAR)
-	@ cdrewrite(cross("ん", "n"), "", "", SIGMA_STAR)
-	@ cdrewrite(string_map(digraph_map), "", "", SIGMA_STAR)
-	@ cdrewrite(cross("う","ː"), "ɯ", "", SIGMA_STAR)
-	@ cdrewrite(string_map(long_vowel_map), "", "", SIGMA_STAR)
-	@ cdrewrite(string_map(context_free_map), "", "", SIGMA_STAR)
+	cdrewrite(
+		cross("は", "ɰɑ"),
+		"[BOS]",
+		"[EOS]",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		string_map(digraph_bos_map),
+		"[BOS]",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		string_map(digraph_map),
+		"",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(string_map(monograph_bos_map),
+		"[BOS]",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		cross("ん", "n"),
+		"ː",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		cross("ん", "ɴ"),
+		"",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		string_map(long_vowel_map),
+		"",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		string_map(context_free_map),
+		"",
+		"",
+		SIGMA_STAR
+	)
 	@ cdrewrite(
 		string_map(nasalization_map), 
 		"",
@@ -292,14 +335,43 @@ G2P = (
 		"",
 		SIGMA_STAR
 	)
-	@ cdrewrite(cross(sokuon, ""), "", "", SIGMA_STAR)
 	@ cdrewrite(
-		cross("g", "ŋ"),
+		cross(sokuon, ""),
+		"",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		cross("ɡ", "ŋ"),
 		union(vowels, suprasegmentals),
 		vowels,
-		SIGMA_STAR)
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		cross("ɡ", "ŋ"),
+		"ɴ",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		cross("ɯ", "ː"),
+		union("o", "ɯ"),
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		cross("ɑ", "a"),
+		"ss",
+		"",
+		SIGMA_STAR
+	)
+	@ cdrewrite(
+		cross("ɑ", "ã"),
+		"",
+		"ɴ",
+		SIGMA_STAR
+	)
 ).optimize()
-
 
 def g2p(istring: str) -> str:
     """Applies the G2P rule.
